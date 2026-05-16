@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: ["*.natappfree.cc", "*.natapp.cc", "kfa777fd.natappfree.cc"],
   poweredByHeader: false,
   async headers() {
     return [
