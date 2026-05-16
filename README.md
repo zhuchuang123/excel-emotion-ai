@@ -68,7 +68,7 @@ npm run test:deepseek
 
 ## 上线部署
 
-推荐使用 Vercel 部署为在线小网站，不需要购买域名，也不需要把自己的电脑作为服务器。详细步骤见：
+国内临时展示推荐使用 NATAPP 内网穿透，不需要购买服务器或域名。详细步骤见：
 
 [DEPLOYMENT.md](./DEPLOYMENT.md)
 

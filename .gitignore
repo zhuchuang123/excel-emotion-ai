@@ -14,3 +14,5 @@ pnpm-debug.log*
 outputs
 data/*
 !data/.gitkeep
+tools/natapp/*
+!tools/natapp/.gitkeep
