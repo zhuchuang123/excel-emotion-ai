@@ -196,6 +196,7 @@ function failedBatchRows(items: AnalyzeItem[], error: string): AnalysisRow[] {
 export default function Home() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [accessCode, setAccessCode] = useState("");
+  const [apiKey, setApiKey] = useState("");
   const [parsedSheet, setParsedSheet] = useState<ParsedSheet | null>(null);
   const [provider, setProvider] = useState<string>("待检测");
   const [analysisRows, setAnalysisRows] = useState<AnalysisRow[]>([]);
@@ -272,6 +273,7 @@ export default function Home() {
       },
       body: JSON.stringify({
         accessCode,
+        apiKey: apiKey.trim() || undefined,
         items
       })
     });
@@ -389,6 +391,18 @@ export default function Home() {
               placeholder="请输入访问码"
               type="password"
               value={accessCode}
+            />
+          </div>
+
+          <div className="field">
+            <label htmlFor="api-key">DeepSeek API Key</label>
+            <input
+              className="input"
+              id="api-key"
+              onChange={(event) => setApiKey(event.target.value)}
+              placeholder="Vercel 未配置环境变量时填写"
+              type="password"
+              value={apiKey}
             />
           </div>
 

@@ -5,6 +5,7 @@ type ValidationResult =
   | {
       ok: true;
       items: AnalyzeItem[];
+      apiKey?: string;
     }
   | {
       ok: false;
@@ -68,6 +69,10 @@ function hasValidAccessCode(value: unknown) {
   if (!expected) return false;
 
   return normalizeText(value) === expected;
+}
+
+function requiresAccessCode(apiKey: string) {
+  return Boolean(process.env.ACCESS_CODE) || !apiKey;
 }
 
 function parseAllowedOrigins() {
@@ -242,14 +247,18 @@ export function validateAnalyzePayload(body: unknown): ValidationResult {
 
   const payload = body as {
     accessCode?: unknown;
+    apiKey?: unknown;
     items?: unknown;
   };
+  const apiKey = normalizeText(payload.apiKey);
 
-  if (!hasValidAccessCode(payload.accessCode)) {
+  if (requiresAccessCode(apiKey) && !hasValidAccessCode(payload.accessCode)) {
     return {
       ok: false,
       status: 401,
-      message: "访问码不正确"
+      message: process.env.ACCESS_CODE
+        ? "访问码不正确"
+        : "请先输入 DeepSeek API Key，或在服务端配置 ACCESS_CODE"
     };
   }
 
@@ -310,6 +319,7 @@ export function validateAnalyzePayload(body: unknown): ValidationResult {
 
   return {
     ok: true,
-    items
+    items,
+    apiKey: apiKey || undefined
   };
 }

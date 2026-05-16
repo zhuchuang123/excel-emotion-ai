@@ -45,6 +45,8 @@ RATE_LIMIT_MAX_REQUESTS=30
 
 没有配置 `DEEPSEEK_API_KEY` 时，系统会使用内置 mock 逻辑，方便先验证页面和接口链路。
 
+如果部署时不会配置环境变量，也可以不填 `DEEPSEEK_API_KEY`。网页里有 `DeepSeek API Key` 输入框，分析时临时填写即可；Key 不会提交到 Git 仓库，也不会保存在服务器。
+
 ## 防滥用配置
 
 - `ACCESS_CODE`：页面调用接口时必须提交的访问码。

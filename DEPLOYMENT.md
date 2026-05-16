@@ -31,6 +31,8 @@
 
 Vercel 通常会自动识别 Next.js 项目，不需要手动指定构建命令。项目根目录保持不变即可。
 
+如果你不会配置环境变量，可以先跳过本节直接 Deploy。部署后的页面会提供 `DeepSeek API Key` 输入框，填入 Key 后也能分析。
+
 在 Project Settings 中配置环境变量：
 
 - `DEEPSEEK_API_KEY`
@@ -74,6 +76,19 @@ RATE_LIMIT_MAX_REQUESTS=30
 5. 部署完成后，使用生成的 `vercel.app` 地址访问。
 
 部署成功后，任何能访问互联网的电脑都可以打开该 `vercel.app` 地址；不需要在你的电脑上运行 `npm run dev`。
+
+## 不配置环境变量的用法
+
+这种方式最简单：
+
+1. 在 Vercel 直接 Deploy。
+2. 打开生成的公网网址。
+3. 在页面的 `DeepSeek API Key` 输入框里填入 Key。
+4. 上传 Excel 并分析。
+
+这种方式不会把 Key 写入 GitHub，也不会保存在服务器；但每次换浏览器或刷新页面后可能需要重新填写。它适合演示和临时使用。
+
+如果希望别人打开网页就能分析、无需知道 DeepSeek Key，则必须在 Vercel 后台配置 `DEEPSEEK_API_KEY` 环境变量。
 
 ## 本地联调
 

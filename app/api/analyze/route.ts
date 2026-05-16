@@ -10,10 +10,12 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 export async function GET() {
+  const hasDeepSeekKey = Boolean(process.env.DEEPSEEK_API_KEY);
+
   return NextResponse.json({
     ok: true,
     service: "excel-emotion-ai",
-    provider: process.env.DEEPSEEK_API_KEY ? "deepseek" : "mock"
+    provider: hasDeepSeekKey ? "deepseek" : "runtime-key"
   });
 }
 
@@ -49,14 +51,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const hasDeepSeekKey = Boolean(process.env.DEEPSEEK_API_KEY);
-    const results = hasDeepSeekKey
-      ? await analyzeWithDeepSeek(validation.items)
+    const hasServerDeepSeekKey = Boolean(process.env.DEEPSEEK_API_KEY);
+    const hasRuntimeDeepSeekKey = Boolean(validation.apiKey);
+    const results = hasServerDeepSeekKey || hasRuntimeDeepSeekKey
+      ? await analyzeWithDeepSeek(validation.items, validation.apiKey)
       : mockAnalyze(validation.items);
 
     return NextResponse.json({
       ok: true,
-      provider: hasDeepSeekKey ? "deepseek" : "mock",
+      provider: hasServerDeepSeekKey
+        ? "deepseek"
+        : hasRuntimeDeepSeekKey
+          ? "runtime-key"
+          : "mock",
       results
     }, {
       headers: requestSecurity.headers

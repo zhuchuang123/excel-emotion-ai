@@ -210,11 +210,19 @@ async function parseDeepSeekError(response: Response) {
 }
 
 export async function analyzeWithDeepSeek(
-  items: AnalyzeItem[]
+  items: AnalyzeItem[],
+  apiKeyOverride?: string
 ): Promise<SentimentResult[]> {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
+  const apiKey = apiKeyOverride || process.env.DEEPSEEK_API_KEY;
 
   if (!apiKey) {
+    if (process.env.NODE_ENV === "production") {
+      throw new DeepSeekRequestError(
+        "请先输入 DeepSeek API Key，或在 Vercel 配置 DEEPSEEK_API_KEY",
+        401
+      );
+    }
+
     return mockAnalyze(items);
   }
 
