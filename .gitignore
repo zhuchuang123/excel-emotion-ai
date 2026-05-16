@@ -4,6 +4,8 @@ out
 dist
 *.tsbuildinfo
 .next-dev.*.log
+.next-dev-*.log
+.natapp.*.log
 .vercel
 .env
 .env*.local

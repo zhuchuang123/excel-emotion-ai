@@ -116,6 +116,10 @@ function isPrivateIpv4Host(hostname: string) {
   );
 }
 
+function isLocalTunnelHost(hostname: string) {
+  return hostname.endsWith(".natappfree.cc") || hostname.endsWith(".natapp.cc");
+}
+
 function isLocalRequest(requestUrl: URL) {
   return process.env.NODE_ENV !== "production" || isLoopbackHost(requestUrl.hostname);
 }
@@ -138,7 +142,8 @@ function isAllowedOrigin(request: NextRequest) {
   if (
     originUrl &&
     (isLoopbackHost(originUrl.hostname) ||
-      isPrivateIpv4Host(originUrl.hostname)) &&
+      isPrivateIpv4Host(originUrl.hostname) ||
+      isLocalTunnelHost(originUrl.hostname)) &&
     isLocalRequest(requestUrl)
   ) {
     return true;
