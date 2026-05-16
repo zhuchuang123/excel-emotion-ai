@@ -61,7 +61,12 @@ function normalizeText(value: unknown) {
 }
 
 function hasValidAccessCode(value: unknown) {
-  const expected = process.env.ACCESS_CODE || DEFAULT_ACCESS_CODE;
+  const expected =
+    process.env.ACCESS_CODE ||
+    (process.env.NODE_ENV === "production" ? "" : DEFAULT_ACCESS_CODE);
+
+  if (!expected) return false;
+
   return normalizeText(value) === expected;
 }
 

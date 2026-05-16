@@ -57,7 +57,7 @@ https://excel-emotion-ai.vercel.app
 DEEPSEEK_API_KEY=你的 DeepSeek Key
 DEEPSEEK_MODEL=deepseek-v4-flash
 DEEPSEEK_TIMEOUT_MS=30000
-ACCESS_CODE=你自己的访问码
+ACCESS_CODE=你自己的强访问码，不要使用 demo2026
 ALLOWED_ORIGINS=https://你的项目名.vercel.app
 MAX_ITEMS_PER_REQUEST=20
 MAX_TEXT_LENGTH=500

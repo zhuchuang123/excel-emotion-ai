@@ -195,7 +195,7 @@ function failedBatchRows(items: AnalyzeItem[], error: string): AnalysisRow[] {
 
 export default function Home() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [accessCode, setAccessCode] = useState("demo2026");
+  const [accessCode, setAccessCode] = useState("");
   const [parsedSheet, setParsedSheet] = useState<ParsedSheet | null>(null);
   const [provider, setProvider] = useState<string>("待检测");
   const [analysisRows, setAnalysisRows] = useState<AnalysisRow[]>([]);
@@ -386,6 +386,7 @@ export default function Home() {
               className="input"
               id="access-code"
               onChange={(event) => setAccessCode(event.target.value)}
+              placeholder="请输入访问码"
               type="password"
               value={accessCode}
             />
